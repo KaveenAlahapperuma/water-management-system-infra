@@ -13,3 +13,15 @@ output "private_subnet_ids" {
 output "kms_key_arns" {
   value = { for k, v in aws_kms_key.this : k => v.arn }
 }
+
+output "cluster_name" {
+  value = aws_eks_cluster.main.name
+}
+
+output "cluster_endpoint" {
+  value = aws_eks_cluster.main.endpoint
+}
+
+output "oidc_provider_arn" {
+  value = aws_iam_openid_connect_provider.eks.arn
+}
