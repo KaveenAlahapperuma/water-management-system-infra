@@ -1,0 +1,4 @@
+installCRDs: true
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::768286545498:role/wms-eso-role
