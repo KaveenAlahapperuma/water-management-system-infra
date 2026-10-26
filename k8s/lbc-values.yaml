@@ -1,0 +1,9 @@
+clusterName: wms-eks
+region: us-east-1
+vpcId: vpc-0a7694357f0fdefaf
+replicaCount: 1
+serviceAccount:
+  create: true
+  name: aws-load-balancer-controller
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::768286545498:role/wms-lbc-role

@@ -49,3 +49,7 @@ output "eso_role_arn" {
 output "acm_certificate_arn" {
   value = aws_acm_certificate_validation.main.certificate_arn
 }
+
+output "lbc_role_arn" {
+  value = aws_iam_role.lbc.arn
+}
