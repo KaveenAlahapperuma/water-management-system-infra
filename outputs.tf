@@ -41,3 +41,7 @@ output "rds_master_secret_arn" {
 output "backend_secret_arn" {
   value = aws_secretsmanager_secret.backend.arn
 }
+
+output "eso_role_arn" {
+  value = aws_iam_role.eso.arn
+}
