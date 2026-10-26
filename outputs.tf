@@ -25,3 +25,7 @@ output "cluster_endpoint" {
 output "oidc_provider_arn" {
   value = aws_iam_openid_connect_provider.eks.arn
 }
+
+output "ecr_repository_urls" {
+  value = { for k, v in aws_ecr_repository.this : k => v.repository_url }
+}
