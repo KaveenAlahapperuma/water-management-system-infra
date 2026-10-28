@@ -1,0 +1,20 @@
+prometheus:
+  prometheusSpec:
+    retention: 3d
+    resources:
+      requests:
+        cpu: 200m
+        memory: 512Mi
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 5Gi
+grafana:
+  persistence:
+    enabled: true
+    size: 2Gi
+alertmanager:
+  enabled: false
