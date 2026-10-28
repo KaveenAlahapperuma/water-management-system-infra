@@ -111,3 +111,32 @@ resource "aws_instance" "jenkins" {
 
   tags = { Name = "${var.prefix}-jenkins" }
 }
+
+data "http" "github_meta" {
+  url = "https://api.github.com/meta"
+  request_headers = {
+    Accept = "application/vnd.github+json"
+  }
+}
+
+locals {
+  github_hook_cidrs = [
+    for c in jsondecode(data.http.github_meta.response_body).hooks : c
+    if !can(regex(":", c))
+  ]
+}
+
+resource "aws_vpc_security_group_ingress_rule" "jenkins_github_hooks" {
+  for_each          = toset(local.github_hook_cidrs)
+  security_group_id = aws_security_group.jenkins.id
+  cidr_ipv4         = each.value
+  from_port         = 8080
+  to_port           = 8080
+  ip_protocol       = "tcp"
+  description       = "GitHub webhooks"
+}
+
+resource "aws_eip" "jenkins" {
+  instance = aws_instance.jenkins.id
+  domain   = "vpc"
+}
