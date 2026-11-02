@@ -126,15 +126,6 @@ Filebeat ships the `wms` container logs to Elasticsearch, and Kibana is used to 
 - The frontend API URL is baked in at build time by Vite, so the Jenkinsfile passes it as a build argument.
 - My admin IP changed several times and locked me out of Jenkins and the cluster API. The allowed CIDR is a Terraform variable.
 
-## Known limitations
-
-- Trivy runs in report-only mode. The latest scan reported 74 HIGH/CRITICAL findings in the backend image and 60 in the frontend image, mostly in base layers and dependencies.
-- There is no automated test stage, and the app has failing tests that I left alone (this project was deployment-only).
-- The frontend image installs without a lockfile, so builds are not fully reproducible.
-- Elasticsearch runs as a single node with no retention policy, and Alertmanager is disabled. This is fine for a demo, not for production.
-- The backend's SMS gateway host is the placeholder `dummy`, so scheduled SMS sends log warnings. That is application configuration.
-- Pods have CPU and memory requests but no CPU limits.
-
 ## Cost and teardown
 
 The cluster, NAT gateway, RDS instance and load balancer all cost money every hour they run. Before `terraform destroy`, remove what Kubernetes created outside Terraform (ingresses and their load balancers, and the persistent volumes behind Prometheus, Grafana and Elasticsearch), otherwise they are left behind and keep billing:
