@@ -8,13 +8,14 @@ Infrastructure and deployment setup for a full-stack water-billing platform (Rea
 
 ## How it works
 
-1.A push to the backend or frontend repo triggers Jenkins through a GitHub webhook.
-2.Jenkins builds the Docker image, scans it with Trivy, pushes it to ECR and commits the new image tag to a separate GitOps repo.
-3.ArgoCD (also webhook-triggered) syncs the GitOps repo to EKS with a rolling update. There is no manual kubectl apply for the app.
-4.The domain hydropay-wms.click is bought on Namecheap and pointed at AWS Route 53 using custom nameservers. Users reach the site through Route 53, then an ALB with an ACM certificate (HTTPS), then the frontend (nginx) and backend (Spring Boot).
-5.The backend talks to a private Amazon RDS PostgreSQL database. Only the cluster can reach it, and it is encrypted with a customer-managed KMS key.
-6.Credentials live in AWS Secrets Manager, including the RDS-managed database password. The External Secrets Operator syncs them into the cluster, so nothing secret is stored in Git.
-7.Prometheus and Grafana monitor the cluster, nodes and pods. Filebeat ships the application logs to Elasticsearch, and Kibana is used to search them.
+1. A push to the backend or frontend repo triggers **Jenkins** through a GitHub webhook.
+2. Jenkins builds the Docker image, scans it with **Trivy**, pushes it to **ECR** and commits the new image tag to a separate **GitOps** repo.
+3. **ArgoCD** (also webhook-triggered) syncs the GitOps repo to **EKS** with a rolling update. There is no manual `kubectl apply` for the app.
+4. The domain `hydropay-wms.click` is bought on **Namecheap** and pointed at **Route 53** using custom nameservers. Users reach the site through Route 53, then an **ALB** with an **ACM** certificate (HTTPS), then the frontend (nginx) and backend (Spring Boot).
+5. The backend talks to a private **Amazon RDS** PostgreSQL database. Only the cluster can reach it, and it is encrypted with a customer-managed **KMS** key.
+6. Credentials live in **AWS Secrets Manager**, including the RDS-managed database password. The **External Secrets Operator** syncs them into the cluster, so nothing secret is stored in Git.
+7. **Prometheus** and **Grafana** monitor the cluster, nodes and pods. **Filebeat** ships the application logs to **Elasticsearch**, and **Kibana** is used to search them.
+
 ![ArgoCD application tree](docs/images/argocd.png)
 
 ## Stack
