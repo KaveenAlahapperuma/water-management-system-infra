@@ -101,7 +101,7 @@ Grafana dashboards from kube-prometheus-stack show pod, node and cluster CPU and
 
 | Pods (`wms` namespace) | Nodes | Cluster |
 |---|---|---|
-| ![Grafana pods](docs/images/grafana-pods.png) | ![Grafana nodes](docs/images/grafana-nodes.png) | ![Grafana cluster](docs/images/grafana-cluster.png) |
+| ![Grafana pods](docs/images/grafana-pods.png) | ![Grafana nodes](docs/images/grafana nodes.png) | ![Grafana cluster](docs/images/grafana-cluster.png) |
 
 Filebeat ships the `wms` container logs to Elasticsearch, and Kibana is used to search them. Reading the backend logs this way is how I spotted the app's chatty scheduler and its SMS gateway warnings.
 
