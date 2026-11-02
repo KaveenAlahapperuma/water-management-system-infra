@@ -76,10 +76,12 @@ Images are stored in ECR, tagged with the Jenkins build number:
 
 ## AWS resources
 
-| | |
+| VPC | Load balancer |
 |---|---|
-| ![VPC resource map](docs/images/vpc-map.png) | ![EKS cluster](docs/images/eks.png) |
-| ![RDS PostgreSQL](docs/images/rds.png) | ![Load balancer](docs/images/load-balancers.png) |
+| ![VPC resource map](docs/images/vpc-map.png) | ![Load balancer](docs/images/load-balancers.png) |
+
+| Route 53 | Certificate Manager |
+|---|---|
 | ![Route 53](docs/images/route53.png) | ![Certificate Manager](docs/images/certificate-manager.png) |
 
 ## Domain and HTTPS
