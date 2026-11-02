@@ -84,9 +84,10 @@ Images are stored in ECR, tagged with the Jenkins build number:
 
 I bought `hydropay-wms.click` from Namecheap (a cheap `.click` domain, enough for a practice project) and delegated it to AWS:
 
-1. Terraform creates a Route 53 hosted zone and I set its four nameservers in Namecheap.
-2. Terraform requests an ACM wildcard certificate, validated automatically through DNS records in Route 53.
-3. The AWS Load Balancer Controller creates the ALB from the Ingress, and alias records point `hydropay-wms.click` and `argocd.hydropay-wms.click` at it.
+1. I created a Route 53 hosted zone for the domain in the AWS console. It is not managed by Terraform, which reads it as a `data` source.
+2. At Namecheap I switched the domain from the default DNS to Custom DNS and entered the four Route 53 nameservers, then checked with `nslookup -type=NS hydropay-wms.click 8.8.8.8`.
+3. Terraform requests an ACM certificate for the domain and `*.hydropay-wms.click`, validated automatically through DNS records it adds to the zone.
+4. The AWS Load Balancer Controller creates the ALB from the Ingress, and alias records point `hydropay-wms.click` and `argocd.hydropay-wms.click` at it.
 
 A stable domain matters because GitHub webhooks need a fixed public URL, and ACM cannot issue a certificate for a load balancer's own hostname.
 
@@ -100,7 +101,9 @@ Grafana dashboards from kube-prometheus-stack show pod, node and cluster CPU and
 
 Filebeat ships the `wms` container logs to Elasticsearch, and Kibana is used to search them. Reading the backend logs this way is how I spotted the app's chatty scheduler and its SMS gateway warnings.
 
-![Kibana](docs/images/kibana.png)
+| Backend logs in Kibana | Log volume per container |
+|---|---|
+| ![Kibana](docs/images/kibana.png) | ![Kibana logs by container](docs/images/kibana-logs-by-container.png) |
 
 ## Design decisions
 
