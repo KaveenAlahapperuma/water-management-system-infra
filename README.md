@@ -2,9 +2,15 @@
 
 Infrastructure and deployment setup for a full-stack water-billing platform (React, Spring Boot, PostgreSQL). The application was built as a university group project. I was the DevOps owner for its AWS deployment: Terraform infrastructure, CI/CD, GitOps, monitoring and logging.
 
-> **Status:** deployed and tested on AWS, then torn down to save cost. Demo video: <paste link here>
+> **Status:** deployed and tested on AWS, then torn down to save cost. A full demo video is included below.
 
 ![AWS architecture](docs/images/aws-architecture.png)
+
+## Demo video
+
+A short walkthrough of the live app, the AWS resources, the Jenkins pipelines, ArgoCD, and the Prometheus, Grafana and Kibana dashboards:
+
+https://github.com/user-attachments/assets/45b2ba7d-eef0-4d3f-bc29-b1cf79e55cd0
 
 ## How it works
 
